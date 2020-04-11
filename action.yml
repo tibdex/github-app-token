@@ -1,6 +1,6 @@
 name: GitHub App token
 author: Thibault Derousseaux <tibdex@gmail.com>
-description: Used to impersonate a GitHub App in a GitHub Action when secrets.GITHUB_TOKEN's limitations are too restrictive and a personal access token is not suitable.
+description: Run a GitHub Action as a GitHub App instead of using secrets.GITHUB_TOKEN or a personal access token.
 inputs:
   app_id:
     description: ID of the GitHub App.
