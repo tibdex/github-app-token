@@ -1,4 +1,4 @@
-import { getInput, setFailed, setOutput, setSecret } from "@actions/core";
+import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
 import { context, GitHub } from "@actions/github";
 import { App } from "@octokit/app";
 import isBase64 from "is-base64";
@@ -21,6 +21,7 @@ const run = async () => {
     });
     setSecret(token);
     setOutput("token", token);
+    info("Token generated successfully!");
   } catch (error) {
     if (error instanceof Error) {
       setFailed(error.message);
