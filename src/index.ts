@@ -1,5 +1,12 @@
-import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
-import { context, GitHub } from "@actions/github";
+import {
+  error as logError,
+  getInput,
+  info,
+  setFailed,
+  setOutput,
+  setSecret,
+} from "@actions/core";
+import { context, getOctokit } from "@actions/github";
 import { App } from "@octokit/app";
 import isBase64 from "is-base64";
 
@@ -12,10 +19,10 @@ const run = async () => {
       : privateKeyInput;
     const app = new App({ id, privateKey });
     const jwt = app.getSignedJsonWebToken();
-    const github = new GitHub(jwt);
+    const octokit = getOctokit(jwt);
     const {
       data: { id: installationId },
-    } = await github.apps.getRepoInstallation(context.repo);
+    } = await octokit.apps.getRepoInstallation(context.repo);
     const token = await app.getInstallationAccessToken({
       installationId,
     });
@@ -23,10 +30,9 @@ const run = async () => {
     setOutput("token", token);
     info("Token generated successfully!");
   } catch (error) {
-    if (error instanceof Error) {
-      setFailed(error.message);
-    }
+    logError(error);
+    setFailed(error.message);
   }
 };
 
-run();
+void run();
