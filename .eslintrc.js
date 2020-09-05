@@ -1,7 +1,6 @@
 "use strict";
 
 module.exports = {
-  // eslint-disable-next-line unicorn/prevent-abbreviations
   env: {
     es6: true,
   },
