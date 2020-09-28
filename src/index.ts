@@ -17,12 +17,21 @@ const run = async () => {
     const privateKey = isBase64(privateKeyInput)
       ? Buffer.from(privateKeyInput, "base64").toString("utf8")
       : privateKeyInput;
+
+    const repository = context.repo;
+    const repositoryInput = getInput("repository");
+    if (repositoryInput) {
+      const repositorySplit = repositoryInput.split("/");
+      repository.owner = repositorySplit[0];
+      repository.repo = repositorySplit[1];
+    }
+
     const app = new App({ id, privateKey });
     const jwt = app.getSignedJsonWebToken();
     const octokit = getOctokit(jwt);
     const {
       data: { id: installationId },
-    } = await octokit.apps.getRepoInstallation(context.repo);
+    } = await octokit.apps.getRepoInstallation(repository);
     const token = await app.getInstallationAccessToken({
       installationId,
     });

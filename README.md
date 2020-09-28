@@ -17,6 +17,8 @@ jobs:
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
+          # optionally, defaults to the current repository
+          repository: "owner/repo"
       - name: Use token
         env:
           TOKEN: ${{ steps.generate_token.outputs.token }}
