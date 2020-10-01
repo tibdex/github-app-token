@@ -15,7 +15,7 @@
     "prettier": "prettier --ignore-path .gitignore \"./**/*.{js,json,md,ts,yml}\""
   },
   "devDependencies": {
-    "@actions/core": "^1.2.5",
+    "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
     "@octokit/app": "^4.2.1",
     "@types/is-base64": "^1.1.0",
