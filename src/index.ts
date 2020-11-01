@@ -29,9 +29,12 @@ const run = async () => {
     setSecret(token);
     setOutput("token", token);
     info("Token generated successfully!");
-  } catch (error) {
-    logError(error);
-    setFailed(error.message);
+  } catch (error: unknown) {
+    if (typeof error !== "string" && !(error instanceof Error)) {
+      throw new TypeError(`Caught error of unexpected type: ${typeof error}`);
+    }
+
+    setFailed(error);
   }
 };
 
