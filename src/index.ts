@@ -19,13 +19,13 @@ const run = async () => {
       : privateKeyInput;
     const app = createAppAuth({ id, privateKey });
     const authApp = await app({ type: "app" });
-    const jwt = authApp.token
+    const jwt = authApp.token;
     const octokit = getOctokit(jwt);
     const {
       data: { id: installationId },
     } = await octokit.apps.getRepoInstallation(context.repo);
     const installation = await app({ installationId, type: "installation" });
-    const installationToken = installation.token
+    const installationToken = installation.token;
     setSecret(installationToken);
     setOutput("token", installationToken);
     info("Token generated successfully!");
