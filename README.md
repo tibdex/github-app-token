@@ -24,4 +24,4 @@ jobs:
           TOKEN: ${{ steps.generate_token.outputs.token }}
         run: |
           echo "The generated token is masked: ${TOKEN}"
-```
+```  
