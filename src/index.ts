@@ -7,7 +7,7 @@ import {
   setSecret,
 } from "@actions/core";
 import { context, getOctokit } from "@actions/github";
-import { App } from "@octokit/app";
+import { App } from "@octokit/auth-app";
 import isBase64 from "is-base64";
 
 const run = async () => {
