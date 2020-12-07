@@ -24,7 +24,7 @@ const run = async () => {
     const {
       data: { id: installationId },
     } = await octokit.apps.getRepoInstallation(context.repo);
-    const installation = await app({ type: "installation", installationId });
+    const installation = await app({ installationId, type: "installation" });
     const installationToken = installation.token
     setSecret(installationToken);
     setOutput("token", installationToken);
