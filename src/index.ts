@@ -22,7 +22,7 @@ const run = async () => {
       : privateKeyInput;
 
     // run our actual logic
-    const installationToken = await getToken(privateKey, id, context);
+    const installationToken = await getToken(privateKey, id, context.repo);
 
     // set our inputs as needed
     setSecret(installationToken);
