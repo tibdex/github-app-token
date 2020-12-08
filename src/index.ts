@@ -17,7 +17,7 @@ const run = async () => {
     const privateKey = isBase64(privateKeyInput)
       ? Buffer.from(privateKeyInput, "base64").toString("utf8")
       : privateKeyInput;
-    const app = createAppAuth({ id, privateKey });
+    const app = createAppAuth({ appId: id, privateKey: privateKey });
     const authApp = await app({ type: "app" });
     const jwt = authApp.token;
     const octokit = getOctokit(jwt);
