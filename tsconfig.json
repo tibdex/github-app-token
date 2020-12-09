@@ -7,7 +7,7 @@
     "noEmitOnError": true,
     "strict": true,
     "target": "esnext",
-    "types": ["node"]
+    "types": ["node", "jest"]
   },
   "include": [".*.js", "*.js", "src"]
 }
