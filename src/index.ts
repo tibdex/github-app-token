@@ -10,7 +10,7 @@ import { context, getOctokit } from "@actions/github";
 
 import isBase64 from "is-base64";
 
-import { getToken } from './get-token';
+import { getToken } from "./get-token";
 
 const run = async () => {
   try {
