@@ -1,8 +1,7 @@
 import { getOctokit } from "@actions/github";
 import { createAppAuth } from "@octokit/auth-app";
-import { Context } from "@actions/github/lib/context";
 
-export async function getToken(
+export const getToken = async function (
   privateKey: string,
   appId: string,
   context: { owner: string, repo: string }): Promise<string> {

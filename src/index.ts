@@ -10,21 +10,21 @@ import { context, getOctokit } from "@actions/github";
 
 import isBase64 from "is-base64";
 
-import { getToken } from './get_token';
+import { getToken } from './get-token';
 
 const run = async () => {
   try {
-    // parse inputs
+    // Parse inputs
     const id = getInput("app_id", { required: true });
     const privateKeyInput = getInput("private_key", { required: true });
     const privateKey = isBase64(privateKeyInput)
       ? Buffer.from(privateKeyInput, "base64").toString("utf8")
       : privateKeyInput;
 
-    // run our actual logic
+    // Run our actual logic
     const installationToken = await getToken(privateKey, id, context.repo);
 
-    // set our inputs as needed
+    // Set our inputs as needed
     setSecret(installationToken);
     setOutput("token", installationToken);
     info("Token generated successfully!");
