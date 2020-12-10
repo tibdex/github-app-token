@@ -14,7 +14,7 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 2018,
-    project: ["tsconfig.json", "__tests__/main.test.ts"],
+    project: "tsconfig.json",
     sourceType: "module",
   },
   plugins: ["sort-destructure-keys", "typescript-sort-keys", "unicorn"],
