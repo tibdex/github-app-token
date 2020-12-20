@@ -1,4 +1,5 @@
 import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
+import { context } from "@actions/github";
 
 import isBase64 from "is-base64";
 
@@ -12,9 +13,16 @@ const run = async () => {
       ? Buffer.from(privateKeyInput, "base64").toString("utf8")
       : privateKeyInput;
 
+    const repositoryInput = getInput("repository");
+    const [owner, repo] = repositoryInput
+      ? repositoryInput.split("/")
+      : [context.repo.owner, context.repo.repo];
+
     const installationToken = await fetchInstallationToken({
       appId,
+      owner,
       privateKey,
+      repo,
     });
 
     setSecret(installationToken);
