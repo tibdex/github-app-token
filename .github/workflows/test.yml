@@ -2,7 +2,7 @@ name: Test
 on:
   push:
     branches-ignore:
-      - master
+      - main
 
 jobs:
   test:
