@@ -1,46 +1,39 @@
-import {
-  error as logError,
-  getInput,
-  info,
-  setFailed,
-  setOutput,
-  setSecret,
-} from "@actions/core";
-import { context, getOctokit } from "@actions/github";
-import { App } from "@octokit/app";
+import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
+import { context } from "@actions/github";
+
 import isBase64 from "is-base64";
+
+import { fetchInstallationToken } from "./fetch-installation-token";
 
 const run = async () => {
   try {
-    const id = Number(getInput("app_id", { required: true }));
+    const appId = getInput("app_id", { required: true });
     const privateKeyInput = getInput("private_key", { required: true });
     const privateKey = isBase64(privateKeyInput)
       ? Buffer.from(privateKeyInput, "base64").toString("utf8")
       : privateKeyInput;
 
-    const repository = context.repo;
     const repositoryInput = getInput("repository");
-    if (repositoryInput) {
-      const repositorySplit = repositoryInput.split("/");
-      repository.owner = repositorySplit[0];
-      repository.repo = repositorySplit[1];
-    }
+    const [owner, repo] = repositoryInput
+      ? repositoryInput.split("/")
+      : [context.repo.owner, context.repo.repo];
 
-    const app = new App({ id, privateKey });
-    const jwt = app.getSignedJsonWebToken();
-    const octokit = getOctokit(jwt);
-    const {
-      data: { id: installationId },
-    } = await octokit.apps.getRepoInstallation(repository);
-    const token = await app.getInstallationAccessToken({
-      installationId,
+    const installationToken = await fetchInstallationToken({
+      appId,
+      owner,
+      privateKey,
+      repo,
     });
-    setSecret(token);
-    setOutput("token", token);
+
+    setSecret(installationToken);
+    setOutput("token", installationToken);
     info("Token generated successfully!");
-  } catch (error) {
-    logError(error);
-    setFailed(error.message);
+  } catch (error: unknown) {
+    if (typeof error === "string" || error instanceof Error) {
+      setFailed(error);
+    } else {
+      setFailed(`Caught error of unexpected type: ${typeof error}`);
+    }
   }
 };
 

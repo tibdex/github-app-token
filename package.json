@@ -1,6 +1,6 @@
 {
   "name": "github-app-token",
-  "version": "1.1.0",
+  "version": "1.3.0",
   "license": "MIT",
   "files": [
     "action.yml",
@@ -15,26 +15,26 @@
     "prettier": "prettier --ignore-path .gitignore \"./**/*.{js,json,md,ts,yml}\""
   },
   "devDependencies": {
-    "@actions/core": "^1.2.5",
+    "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
-    "@octokit/app": "^4.2.1",
+    "@octokit/auth-app": "^2.10.5",
     "@types/is-base64": "^1.1.0",
-    "@types/node": "^14.6.4",
-    "@typescript-eslint/eslint-plugin": "^4.0.1",
-    "@typescript-eslint/parser": "^4.0.1",
-    "@vercel/ncc": "^0.24.0",
-    "eslint": "^7.8.1",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-config-xo": "^0.32.1",
-    "eslint-config-xo-typescript": "^0.32.0",
+    "@types/node": "^14.14.14",
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
+    "@vercel/ncc": "^0.26.1",
+    "eslint": "^7.16.0",
+    "eslint-config-prettier": "^7.1.0",
+    "eslint-config-xo": "^0.33.1",
+    "eslint-config-xo-typescript": "^0.37.0",
     "eslint-import-resolver-typescript": "^2.3.0",
-    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-sort-destructure-keys": "^1.3.5",
-    "eslint-plugin-typescript-sort-keys": "^1.3.0",
-    "eslint-plugin-unicorn": "^21.0.0",
+    "eslint-plugin-typescript-sort-keys": "^1.5.0",
+    "eslint-plugin-unicorn": "^24.0.0",
     "is-base64": "^1.1.0",
-    "prettier": "^2.1.1",
+    "prettier": "^2.2.1",
     "promise-retry": "^2.0.1",
-    "typescript": "^4.0.2"
+    "typescript": "^4.1.3"
   }
 }

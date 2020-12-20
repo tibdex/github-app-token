@@ -9,7 +9,7 @@ inputs:
     description: Private key of the GitHub App (can be Base64 encoded).
     required: true
   repository:
-    description: The repository to request a token on (defaults to the current repository).
+    description: The full name of the repository for which the token will be requested (defaults to the current repository).
 outputs:
   token:
     description: An installation token for the GitHub App on the requested repository.
