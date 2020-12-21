@@ -15,12 +15,11 @@ jobs:
     steps:
       - name: Generate token
         id: generate_token
+        uses: ./<path-to-submodule>
         uses: tibdex/github-app-token@v1
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
-          # Optional (defaults to the current repository).
-          # repository: owner/repo
       - name: Use token
         env:
           TOKEN: ${{ steps.generate_token.outputs.token }}
