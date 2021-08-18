@@ -17,7 +17,9 @@ export const fetchInstallationToken = async ({
     appId,
     privateKey,
     request: request.defaults({
-      baseUrl: process.env["GITHUB_API_URL"] || "http://api.github.com"
+      // GITHUB_API_URL is part of GitHub Actions' built-in environment variables.
+      // See https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables.
+      baseUrl: process.env["GITHUB_API_URL"]
     })
   });
   const authApp = await app({ type: "app" });
