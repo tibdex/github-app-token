@@ -2,10 +2,6 @@ name: GitHub App token
 author: Thibault Derousseaux <tibdex@gmail.com>
 description: Run a GitHub Action as a GitHub App instead of using secrets.GITHUB_TOKEN or a personal access token.
 inputs:
-  api_url:
-    description: API URL for GitHub (https://github.mycompany.com/v3/api).  Leave blank for github.com.
-    required: false
-    default: ''
   app_id:
     description: ID of the GitHub App.
     required: true

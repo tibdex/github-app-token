@@ -1,30 +1,25 @@
 import { getOctokit } from "@actions/github";
 import { createAppAuth } from "@octokit/auth-app";
-import { StrategyOptions } from "@octokit/auth-app/dist-types/types";
 import { request } from "@octokit/request";
 
 export const fetchInstallationToken = async ({
-  apiUrl,
   appId,
   owner,
   privateKey,
   repo,
 }: Readonly<{
-  apiUrl: string,
   appId: string;
   owner: string;
   privateKey: string;
   repo: string;
 }>): Promise<string> => {
-  const options: StrategyOptions = {
+  const app = createAppAuth({
     appId,
-    privateKey
-  };
-  if (apiUrl !== null && apiUrl !== '') {
-    options.request = request.defaults({baseUrl: apiUrl});;
-  }
-
-  const app = createAppAuth(options);
+    privateKey,
+    request: request.defaults({
+      baseUrl: process.env["GITHUB_API_URL"] || "http://api.github.com"
+    })
+  });
   const authApp = await app({ type: "app" });
   const octokit = getOctokit(authApp.token);
   const {
