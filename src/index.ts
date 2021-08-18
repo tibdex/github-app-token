@@ -7,6 +7,7 @@ import { fetchInstallationToken } from "./fetch-installation-token";
 
 const run = async () => {
   try {
+    const apiUrl = getInput("api_url", { required: false });
     const appId = getInput("app_id", { required: true });
     const privateKeyInput = getInput("private_key", { required: true });
     const privateKey = isBase64(privateKeyInput)
@@ -19,6 +20,7 @@ const run = async () => {
       : [context.repo.owner, context.repo.repo];
 
     const installationToken = await fetchInstallationToken({
+      apiUrl,
       appId,
       owner,
       privateKey,
