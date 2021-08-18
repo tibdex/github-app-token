@@ -21,6 +21,8 @@ jobs:
           private_key: ${{ secrets.PRIVATE_KEY }}
           # Optional (defaults to the current repository).
           # repository: owner/repo
+          # Optional (leave blank if not using GitHub Enterprise).
+          # api_url: github.mycompany.com/v3/api
       - name: Use token
         env:
           TOKEN: ${{ steps.generate_token.outputs.token }}
