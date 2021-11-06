@@ -1,8 +1,7 @@
+import { Buffer } from "buffer";
 import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
 import { context } from "@actions/github";
-
 import isBase64 from "is-base64";
-
 import { fetchInstallationToken } from "./fetch-installation-token";
 
 const run = async () => {
@@ -13,6 +12,7 @@ const run = async () => {
       ? Buffer.from(privateKeyInput, "base64").toString("utf8")
       : privateKeyInput;
 
+    const installationId = getInput("installation_id");
     const repositoryInput = getInput("repository");
     const [owner, repo] = repositoryInput
       ? repositoryInput.split("/")
@@ -20,6 +20,7 @@ const run = async () => {
 
     const installationToken = await fetchInstallationToken({
       appId,
+      installationId: installationId ? Number(installationId) : undefined,
       owner,
       privateKey,
       repo,
