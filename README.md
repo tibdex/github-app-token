@@ -11,7 +11,7 @@ However, for organizations, GitHub Apps are [a more appropriate automation solut
 ```yml
 jobs:
   job:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - name: Generate token
         id: generate_token
@@ -19,8 +19,10 @@ jobs:
         with:
           app_id: ${{ secrets.APP_ID }}
           private_key: ${{ secrets.PRIVATE_KEY }}
+          # Optional (defaults to ID of the repository's installation).
+          # installation_id: 1337
           # Optional (defaults to the current repository).
-          # repository: owner/repo
+          # repository: "owner/repo"
       - name: Use token
         env:
           TOKEN: ${{ steps.generate_token.outputs.token }}

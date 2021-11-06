@@ -9,5 +9,5 @@
     "target": "esnext",
     "types": ["node"]
   },
-  "include": [".*.js", "*.js", "src"]
+  "include": ["src"]
 }
