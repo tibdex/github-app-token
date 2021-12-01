@@ -12,6 +12,8 @@ inputs:
     description: The ID of the installation for which the token will be requested (defaults to the ID of the repository's installation).
   repository:
     description: The full name of the repository for which the token will be requested (defaults to the current repository).
+  options:
+    description: Additional options for generating the token (see https://github.com/octokit/auth-app.js#installation-authentication). Must be a string with a JSON object.
 outputs:
   token:
     description: An installation token for the GitHub App on the requested repository.

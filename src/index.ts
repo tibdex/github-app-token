@@ -14,6 +14,7 @@ const run = async () => {
 
     const installationId = getInput("installation_id");
     const repositoryInput = getInput("repository");
+    const options = getInput("options");
     const [owner, repo] = repositoryInput
       ? repositoryInput.split("/")
       : [context.repo.owner, context.repo.repo];
@@ -24,6 +25,7 @@ const run = async () => {
       owner,
       privateKey,
       repo,
+      options: options ? JSON.parse(options) : undefined,
     });
 
     setSecret(installationToken);

@@ -21,8 +21,15 @@ jobs:
           private_key: ${{ secrets.PRIVATE_KEY }}
           # Optional (defaults to ID of the repository's installation).
           # installation_id: 1337
+
           # Optional (defaults to the current repository).
           # repository: "owner/repo"
+
+          # Optional (no defaults).
+          # Note: only a string representation of JSON object is supported
+          # Reference: https://github.com/octokit/auth-app.js#installation-authentication
+          # options: |
+          #   { "repositoryNames": [ "foo", "bar" ] }
       - name: Use token
         env:
           TOKEN: ${{ steps.generate_token.outputs.token }}

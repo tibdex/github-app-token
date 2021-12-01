@@ -9,12 +9,14 @@ export const fetchInstallationToken = async ({
   owner,
   privateKey,
   repo,
+  options,
 }: Readonly<{
   appId: string;
   installationId?: number;
   owner: string;
   privateKey: string;
   repo: string;
+  options: object;
 }>): Promise<string> => {
   const app = createAppAuth({
     appId,
@@ -34,6 +36,10 @@ export const fetchInstallationToken = async ({
     } = await octokit.rest.apps.getRepoInstallation({ owner, repo }));
   }
 
-  const installation = await app({ installationId, type: "installation" });
+  const installation = await app({
+    installationId,
+    type: "installation",
+    ...options,
+  });
   return installation.token;
 };
