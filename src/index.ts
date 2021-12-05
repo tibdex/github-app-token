@@ -1,8 +1,8 @@
-import { Buffer } from "buffer";
+import { Buffer } from "node:buffer";
 import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
 import { context } from "@actions/github";
 import isBase64 from "is-base64";
-import { fetchInstallationToken } from "./fetch-installation-token";
+import { fetchInstallationToken } from "./fetch-installation-token.js";
 
 const run = async () => {
   try {

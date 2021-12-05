@@ -55,7 +55,5 @@ module.exports = {
     ],
     "typescript-sort-keys/interface": "error",
     "typescript-sort-keys/string-enum": "error",
-    // Not supported by Node.js 12.
-    "unicorn/prefer-node-protocol": "off",
   },
 };
