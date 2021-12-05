@@ -16,7 +16,7 @@ outputs:
   token:
     description: An installation token for the GitHub App on the requested repository.
 runs:
-  using: node12
+  using: node16
   main: dist/index.js
 branding:
   icon: unlock
