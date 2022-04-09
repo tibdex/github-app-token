@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noEmitOnError": true,
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "noEmit": true,
     "strict": true,
     "target": "es2021",
-    "types": ["node"]
+    "types": ["node", "error-cause/auto"]
   },
   "include": ["src"]
 }
