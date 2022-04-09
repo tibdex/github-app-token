@@ -2,6 +2,7 @@ import { env } from "node:process";
 import { getOctokit } from "@actions/github";
 import { createAppAuth } from "@octokit/auth-app";
 import { request } from "@octokit/request";
+import ensureError from "ensure-error";
 
 export const fetchInstallationToken = async ({
   appId,
@@ -29,9 +30,16 @@ export const fetchInstallationToken = async ({
   if (installationId === undefined) {
     const authApp = await app({ type: "app" });
     const octokit = getOctokit(authApp.token);
-    ({
-      data: { id: installationId },
-    } = await octokit.rest.apps.getRepoInstallation({ owner, repo }));
+    try {
+      ({
+        data: { id: installationId },
+      } = await octokit.rest.apps.getRepoInstallation({ owner, repo }));
+    } catch (error: unknown) {
+      throw new Error(
+        "Could not get repo installation. Is the app installed on this repo?",
+        { cause: ensureError(error) },
+      );
+    }
   }
 
   const installation = await app({ installationId, type: "installation" });

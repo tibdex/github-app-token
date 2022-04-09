@@ -1,6 +1,7 @@
 import { Buffer } from "node:buffer";
 import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
 import { context } from "@actions/github";
+import ensureError from "ensure-error";
 import isBase64 from "is-base64";
 import { fetchInstallationToken } from "./fetch-installation-token.js";
 
@@ -29,12 +30,9 @@ const run = async () => {
     setSecret(installationToken);
     setOutput("token", installationToken);
     info("Token generated successfully!");
-  } catch (error: unknown) {
-    if (typeof error === "string" || error instanceof Error) {
-      setFailed(error);
-    } else {
-      setFailed(`Caught error of unexpected type: ${typeof error}`);
-    }
+  } catch (_error: unknown) {
+    const error = ensureError(_error);
+    setFailed(error);
   }
 };
 
