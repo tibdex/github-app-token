@@ -21,8 +21,14 @@ jobs:
           private_key: ${{ secrets.PRIVATE_KEY }}
           # Optional (defaults to ID of the repository's installation).
           # installation_id: 1337
+          
           # Optional (defaults to the current repository).
           # repository: "owner/repo"
+
+          # Optional JSON object in a string (defaults to Github App permissions). See https://docs.github.com/en/rest/apps/apps#create-an-installation-access-token-for-an-app
+          # To avoid escaping the JSON quotes, use the YAML multiline line string `>-`
+          # permissions: >-
+          #   {"members": "read"}
       - name: Use token
         env:
           TOKEN: ${{ steps.generate_token.outputs.token }}
