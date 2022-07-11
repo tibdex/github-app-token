@@ -21,7 +21,7 @@ jobs:
           private_key: ${{ secrets.PRIVATE_KEY }}
           # Optional (defaults to ID of the repository's installation).
           # installation_id: 1337
-          
+
           # Optional (defaults to the current repository).
           # repository: "owner/repo"
 

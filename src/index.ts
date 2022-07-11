@@ -15,7 +15,10 @@ const run = async () => {
 
     const installationId = getInput("installation_id");
     const repositoryInput = getInput("repository");
-    const permissionsJSON = getInput("permissions");
+
+    // Note: if this input is not defined, then permissionsJSON === ''
+    // See https://github.com/actions/toolkit/blob/c5278cdd088a8ed6a87dbd5c80d7c1ae03beb6e5/packages/core/src/core.ts#L120
+    const permissionsJSON: string = getInput("permissions");
 
     const [owner, repo] = repositoryInput
       ? repositoryInput.split("/")
@@ -25,9 +28,12 @@ const run = async () => {
       appId,
       installationId: installationId ? Number(installationId) : undefined,
       owner,
+      permissions:
+        permissionsJSON === ""
+          ? undefined
+          : (JSON.parse(permissionsJSON) as Record<string, string>),
       privateKey,
       repo,
-      permissions: JSON.parse(permissionsJSON)
     });
 
     setSecret(installationToken);
