@@ -14,11 +14,10 @@ const run = async () => {
       ? Number(installationIdInput)
       : undefined;
 
-    const permissionsInput = getInput("permissions") || null;
-    const permissions =
-      permissionsInput === null
-        ? undefined
-        : (JSON.parse(permissionsInput) as Record<string, string>);
+    const permissionsInput = getInput("permissions");
+    const permissions = permissionsInput
+      ? (JSON.parse(permissionsInput) as Record<string, string>)
+      : undefined;
 
     const privateKeyInput = getInput("private_key", { required: true });
     const privateKey = isBase64(privateKeyInput)
