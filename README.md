@@ -18,11 +18,20 @@ jobs:
         uses: tibdex/github-app-token@v1
         with:
           app_id: ${{ secrets.APP_ID }}
-          private_key: ${{ secrets.PRIVATE_KEY }}
+
           # Optional (defaults to ID of the repository's installation).
           # installation_id: 1337
+
+          # Optional (defaults to all the Github App permissions).
+          # Using a YAML multiline string to avoid escaping the JSON quotes.
+          # permissions: >-
+          #   {"members": "read"}
+
+          private_key: ${{ secrets.PRIVATE_KEY }}
+
           # Optional (defaults to the current repository).
           # repository: "owner/repo"
+
       - name: Use token
         env:
           TOKEN: ${{ steps.generate_token.outputs.token }}

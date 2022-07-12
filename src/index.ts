@@ -8,12 +8,22 @@ import { fetchInstallationToken } from "./fetch-installation-token.js";
 const run = async () => {
   try {
     const appId = getInput("app_id", { required: true });
+
+    const installationIdInput = getInput("installation_id");
+    const installationId = installationIdInput
+      ? Number(installationIdInput)
+      : undefined;
+
+    const permissionsInput = getInput("permissions");
+    const permissions = permissionsInput
+      ? (JSON.parse(permissionsInput) as Record<string, string>)
+      : undefined;
+
     const privateKeyInput = getInput("private_key", { required: true });
     const privateKey = isBase64(privateKeyInput)
       ? Buffer.from(privateKeyInput, "base64").toString("utf8")
       : privateKeyInput;
 
-    const installationId = getInput("installation_id");
     const repositoryInput = getInput("repository");
     const [owner, repo] = repositoryInput
       ? repositoryInput.split("/")
@@ -21,8 +31,9 @@ const run = async () => {
 
     const installationToken = await fetchInstallationToken({
       appId,
-      installationId: installationId ? Number(installationId) : undefined,
+      installationId,
       owner,
+      permissions,
       privateKey,
       repo,
     });

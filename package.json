@@ -1,6 +1,6 @@
 {
   "name": "github-app-token",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "license": "MIT",
   "type": "module",
   "files": [
@@ -14,10 +14,10 @@
     "xo": "xo"
   },
   "dependencies": {
-    "@actions/core": "^1.6.0",
-    "@actions/github": "^5.0.1",
-    "@octokit/auth-app": "^3.6.1",
-    "@octokit/request": "^5.6.3",
+    "@actions/core": "^1.9.0",
+    "@actions/github": "^5.0.3",
+    "@octokit/auth-app": "^4.0.4",
+    "@octokit/request": "^6.0.2",
     "ensure-error": "^4.0.0",
     "is-base64": "^1.1.0"
   },
@@ -25,15 +25,15 @@
     "@types/error-cause": "^1.0.1",
     "@types/is-base64": "^1.1.1",
     "@types/node": "^16.11.26",
-    "@vercel/ncc": "^0.33.3",
+    "@vercel/ncc": "^0.34.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-sort-destructure-keys": "^1.4.0",
     "eslint-plugin-typescript-sort-keys": "^2.1.0",
     "prettier": "^2.6.2",
-    "prettier-plugin-packagejson": "^2.2.17",
-    "typescript": "^4.7.0-beta",
-    "xo": "^0.48.0",
-    "yarn-deduplicate": "^4.0.0"
+    "prettier-plugin-packagejson": "^2.2.18",
+    "typescript": "^4.7.4",
+    "xo": "^0.50.0",
+    "yarn-deduplicate": "^5.0.0"
   }
 }

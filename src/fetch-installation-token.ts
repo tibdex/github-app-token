@@ -8,12 +8,14 @@ export const fetchInstallationToken = async ({
   appId,
   installationId,
   owner,
+  permissions,
   privateKey,
   repo,
 }: Readonly<{
   appId: string;
   installationId?: number;
   owner: string;
+  permissions?: Record<string, string>;
   privateKey: string;
   repo: string;
 }>): Promise<string> => {
@@ -42,6 +44,10 @@ export const fetchInstallationToken = async ({
     }
   }
 
-  const installation = await app({ installationId, type: "installation" });
+  const installation = await app({
+    installationId,
+    permissions,
+    type: "installation",
+  });
   return installation.token;
 };
