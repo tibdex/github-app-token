@@ -14,7 +14,7 @@ inputs:
     description: The full name of the repository for which the token will be requested (defaults to the current repository).
   permissions:
     description: The JSON-stringified permissions granted to the token (defaults to all the GitHub app permissions, see https://docs.github.com/en/rest/apps/apps#create-an-installation-access-token-for-an-app).
-  github_url:
+  github_api_url:
     description: The API URL of the GitHub server, such as https://api.github.com. Defaults to the environment variable GITHUB_API_URL, see https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables.
 outputs:
   token:

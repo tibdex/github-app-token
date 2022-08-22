@@ -32,7 +32,7 @@ const run = async () => {
 
     // GITHUB_API_URL is part of GitHub Actions' built-in environment variables.
     // See https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables.
-    const githubUrlInput = getInput("github_url");
+    const githubUrlInput = getInput("github_api_url");
     const baseUrl = githubUrlInput
       ? new URL(githubUrlInput)
       : new URL(env.GITHUB_API_URL);
