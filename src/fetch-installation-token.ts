@@ -5,26 +5,26 @@ import ensureError from "ensure-error";
 
 export const fetchInstallationToken = async ({
   appId,
+  baseUrl,
   installationId,
   owner,
   permissions,
   privateKey,
   repo,
-  baseUrl,
 }: Readonly<{
   appId: string;
+  baseUrl: URL;
   installationId?: number;
   owner: string;
   permissions?: Record<string, string>;
   privateKey: string;
   repo: string;
-  baseUrl: URL;
 }>): Promise<string> => {
   const app = createAppAuth({
     appId,
     privateKey,
     request: request.defaults({
-      baseUrl: baseUrl.toString(),
+      baseUrl: baseUrl.toString().replace(/\/+$/, ''),
     }),
   });
 

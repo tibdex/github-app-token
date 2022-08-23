@@ -35,16 +35,16 @@ const run = async () => {
     const githubUrlInput = getInput("github_api_url");
     const baseUrl = githubUrlInput
       ? new URL(githubUrlInput)
-      : new URL(env.GITHUB_API_URL);
+      : new URL(env.GITHUB_API_URL!);
 
     const installationToken = await fetchInstallationToken({
       appId,
+      baseUrl,
       installationId,
       owner,
       permissions,
       privateKey,
       repo,
-      baseUrl
     });
 
     setSecret(installationToken);
