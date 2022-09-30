@@ -29,9 +29,9 @@ export const fetchInstallationToken = async ({
     }),
   });
 
+  const authApp = await app({ type: "app" });
+  const octokit = getOctokit(authApp.token);
   if (installationId === undefined) {
-    const authApp = await app({ type: "app" });
-    const octokit = getOctokit(authApp.token);
     try {
       ({
         data: { id: installationId },
@@ -44,10 +44,16 @@ export const fetchInstallationToken = async ({
     }
   }
 
-  const installation = await app({
-    installationId,
-    permissions,
-    type: "installation",
-  });
-  return installation.token;
+  try {
+    const { data: installation } =
+      await octokit.rest.apps.createInstallationAccessToken({
+        installation_id: installationId,
+        permissions,
+      });
+    return installation?.token;
+  } catch (error: unknown) {
+    throw new Error("Could not create installation access token.", {
+      cause: ensureError(error),
+    });
+  }
 };
