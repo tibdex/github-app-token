@@ -1,4 +1,5 @@
 import { Buffer } from "node:buffer";
+import { env } from "node:process";
 import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
 import { context } from "@actions/github";
 import ensureError from "ensure-error";
@@ -29,8 +30,16 @@ const run = async () => {
       ? repositoryInput.split("/")
       : [context.repo.owner, context.repo.repo];
 
+    // GITHUB_API_URL is part of GitHub Actions' built-in environment variables.
+    // See https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables.
+    const githubUrlInput = getInput("github_api_url");
+    const baseUrl = githubUrlInput
+      ? new URL(githubUrlInput)
+      : new URL(env.GITHUB_API_URL!);
+
     const installationToken = await fetchInstallationToken({
       appId,
+      baseUrl,
       installationId,
       owner,
       permissions,

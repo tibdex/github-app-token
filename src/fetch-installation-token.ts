@@ -1,4 +1,3 @@
-import { env } from "node:process";
 import { getOctokit } from "@actions/github";
 import { createAppAuth } from "@octokit/auth-app";
 import { request } from "@octokit/request";
@@ -6,6 +5,7 @@ import ensureError from "ensure-error";
 
 export const fetchInstallationToken = async ({
   appId,
+  baseUrl,
   installationId,
   owner,
   permissions,
@@ -13,6 +13,7 @@ export const fetchInstallationToken = async ({
   repo,
 }: Readonly<{
   appId: string;
+  baseUrl: URL;
   installationId?: number;
   owner: string;
   permissions?: Record<string, string>;
@@ -23,9 +24,7 @@ export const fetchInstallationToken = async ({
     appId,
     privateKey,
     request: request.defaults({
-      // GITHUB_API_URL is part of GitHub Actions' built-in environment variables.
-      // See https://docs.github.com/en/actions/reference/environment-variables#default-environment-variables.
-      baseUrl: env.GITHUB_API_URL,
+      baseUrl: baseUrl.toString().replace(/\/+$/, ''),
     }),
   });
 
