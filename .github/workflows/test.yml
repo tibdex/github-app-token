@@ -13,7 +13,7 @@ jobs:
       - name: Install
         run: yarn install --frozen-lockfile
       - name: Deduplicate dependencies
-        run: yarn run yarn-deduplicate --fail
+        run: yarn run yarn-deduplicate --fail --strategy fewer
       - name: Build
         run: yarn run build
       - name: Format
