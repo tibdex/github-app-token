@@ -25,7 +25,7 @@ jobs:
           app_id: ${{ secrets.APP_ID }}
 
           # Optional.
-          # github_api_url: https://example.com
+          # github_api_url: https://api.example.com
 
           # Optional.
           # installation_id: 1337
