@@ -5,7 +5,7 @@ import ensureError from "ensure-error";
 
 export const fetchInstallationToken = async ({
   appId,
-  baseUrl,
+  githubApiUrl,
   installationId,
   owner,
   permissions,
@@ -13,7 +13,7 @@ export const fetchInstallationToken = async ({
   repo,
 }: Readonly<{
   appId: string;
-  baseUrl: URL;
+  githubApiUrl: URL;
   installationId?: number;
   owner: string;
   permissions?: Record<string, string>;
@@ -24,12 +24,16 @@ export const fetchInstallationToken = async ({
     appId,
     privateKey,
     request: request.defaults({
-      baseUrl: baseUrl.toString().replace(/\/+$/, ''),
+      baseUrl: githubApiUrl
+        .toString()
+        // Remove optional trailing `/`.
+        .replace(/\/$/, ""),
     }),
   });
 
   const authApp = await app({ type: "app" });
   const octokit = getOctokit(authApp.token);
+
   if (installationId === undefined) {
     try {
       ({
@@ -49,7 +53,7 @@ export const fetchInstallationToken = async ({
         installation_id: installationId,
         permissions,
       });
-    return installation?.token;
+    return installation.token;
   } catch (error: unknown) {
     throw new Error("Could not create installation access token.", {
       cause: ensureError(error),

@@ -1,6 +1,6 @@
 {
   "name": "github-app-token",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "license": "MIT",
   "type": "module",
   "files": [
@@ -15,9 +15,9 @@
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "@actions/github": "^5.0.3",
-    "@octokit/auth-app": "^4.0.4",
-    "@octokit/request": "^6.0.2",
+    "@actions/github": "^5.1.1",
+    "@octokit/auth-app": "^4.0.7",
+    "@octokit/request": "^6.2.2",
     "ensure-error": "^4.0.0",
     "is-base64": "^1.1.0"
   },
@@ -30,10 +30,10 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-sort-destructure-keys": "^1.4.0",
     "eslint-plugin-typescript-sort-keys": "^2.1.0",
-    "prettier": "^2.6.2",
-    "prettier-plugin-packagejson": "^2.2.18",
-    "typescript": "^4.7.4",
-    "xo": "^0.50.0",
+    "prettier": "^2.7.1",
+    "prettier-plugin-packagejson": "^2.3.0",
+    "typescript": "^4.8.4",
+    "xo": "^0.52.4",
     "yarn-deduplicate": "^5.0.0"
   }
 }
