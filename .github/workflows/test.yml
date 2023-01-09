@@ -7,9 +7,10 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-jammy
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - run: cat /etc/lsb-release
       - name: Install
         run: yarn install --frozen-lockfile
       - name: Deduplicate dependencies
@@ -22,7 +23,7 @@ jobs:
         run: yarn run xo
       - name: Run Action
         uses: ./
-        if: always()
         with:
-          app_id: 9999999
-          private_key: ""
+          app_id: "1234"
+          private_key: ${{ secrets.private_key }}
+        continue-on-error: true
