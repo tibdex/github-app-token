@@ -7,7 +7,7 @@ on:
 jobs:
   test:
     name: Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-jammy
     steps:
       - uses: actions/checkout@v2
       - name: Install
@@ -20,3 +20,9 @@ jobs:
         run: yarn run prettier --check
       - name: Lint
         run: yarn run xo
+      - name: Run Action
+        uses: ./
+        if: always()
+        with:
+          app_id: 9999999
+          private_key: ""
