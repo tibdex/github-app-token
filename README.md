@@ -24,21 +24,7 @@ jobs:
         with:
           app_id: ${{ secrets.APP_ID }}
 
-          # Optional.
-          # github_api_url: https://api.example.com
-
-          # Optional.
-          # installation_id: 1337
-
-          # Optional.
-          # Using a YAML multiline string to avoid escaping the JSON quotes.
-          # permissions: >-
-          #   {"members": "read"}
-
           private_key: ${{ secrets.PRIVATE_KEY }}
-
-          # Optional.
-          # repository: owner/repo
 
       - name: Use token
         env:

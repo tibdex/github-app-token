@@ -5,19 +5,11 @@ inputs:
   app_id:
     description: ID of the GitHub App.
     required: true
-  installation_id:
-    description: The ID of the installation for which the token will be requested (defaults to the ID of the repository's installation).
-  github_api_url:
-    description: The API URL of the GitHub server.
-    default: ${{ github.api_url }}
-  permissions:
-    description: The JSON-stringified permissions granted to the token (defaults to all the GitHub app permissions, see https://docs.github.com/en/rest/apps/apps#create-an-installation-access-token-for-an-app).
+
   private_key:
     description: Private key of the GitHub App (can be Base64 encoded).
     required: true
-  repository:
-    description: The full name of the repository for which the token will be requested.
-    default: ${{ github.repository }}
+  
 outputs:
   token:
     description: An installation token for the GitHub App on the requested repository.
