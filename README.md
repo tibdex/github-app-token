@@ -46,6 +46,88 @@ jobs:
           echo "The generated token is masked: ${TOKEN}"
 ```
 
+### Cloning Private Submodules
+This action is a great way to securely clone private submodules, a common need that remains unsupported by GitHub Actions as described in actions/checkout [issue 287](https://github.com/actions/checkout/issues/287). Using GitHub App integration to clone submodules does not consume a paid user seat with a service account, the secrets cannot be used to login to the GitHub web UI, and the token used for the clone expires after one hour.
+
+Steps:
+1. [Create a GitHub App](https://docs.github.com/en/developers/apps/building-github-apps/creating-a-github-app).
+    1. Profile > Your organizations > Organization Settings > GitHub Apps > New GitHub App
+    1. Fill in the information for the app.
+        1. GitHub App name:
+            ```
+            ${REPO_NAME}-ci-submodule-checkout
+            ```
+        1. Description:
+            ```
+            This GitHub application is used by the ${REPO_NAME} CICD pipeline(s) to clone private submodules by using a fork of the tibdex/github-app-token GitHub Action to obtain an ephemeral token from this app and assume its identity. This token expires after one hour.
+            ```
+        1. Homepage URL:
+            ```
+            ${REPO_URL}
+            ```
+        1. Ensure the `Expire user authorization tokens` checkbox is checked.
+        1. Disable webhook notifications.
+        1. Permissions > Repository permissions > Contents > Read-only
+            - This will implicitly set `Metadata` to `Read-only` as well.
+        1. For `Where can this integration be installed?` choose `Only on this account`.
+    1. Click `Create GitHub App`.
+1. Obtain credentials to assume the identity of the app.
+    1. Profile > Your organizations > Developer settings > GitHub Apps > `${REPO_NAME}-ci-submodule-checkout` > Edit
+    1. Private keys > Generate a private key
+    1. A private key downloads to your computer as a `*.pem` file. Keep this secret.
+    1. Note the app ID. Keep this secret.
+1. Install the app in the organization.
+    1. Organization > Settings > GitHub Apps > `${REPO_NAME}-ci-submodule-checkout` > Edit
+    1. Install App
+    1. Click `Install` for the desired organization.
+    1. `Install & Request` on your organization > Only select repositories
+        - If you are an org admin, the button may be labeled differently.
+    1. Select the appropriate repos in the drop-down.
+        - **_This must include both the submodules you wish to clone as well as the repo you are cloning them into!_**  
+          Ask me how I know, lol.
+    1. Click `Install & Request`.
+        - If you are an org admin, the button may be labeled differently.
+1. Create repo secrets for app integration.
+    1. Repo > Settings > Secrets and variables > Actions
+    1. Add two new secrets.
+        ```
+        ${REPO_NAME}_CI_APP_ID
+        ${REPO_NAME}_CI_APP_KEY
+        ```
+1. Use the GitHub App to clone private submodules in your GitHub Actions workflow(s).
+    ```yaml
+    name: CI
+
+    on: [push, workflow_dispatch]
+
+    jobs:
+      build:
+        name: Build
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Authenticate
+            id: auth
+            uses: AntelopeIO/github-app-token-action@v1
+            with:
+              app_id: ${{ secrets.${REPO_NAME}_CI_APP_ID }}
+              private_key: ${{ secrets.${REPO_NAME}_CI_APP_KEY }}
+
+          - name: Checkout Repo
+            uses: actions/checkout@v3
+            with:
+              fetch-depth: 0
+              submodules: 'recursive'
+              token: ${{ steps.auth.outputs.token }}
+
+          - name: Do a Thing
+            run: tree -L 2
+    ```
+
+Don't forget to replace `${REPO_NAME}` and `${REPO_URL}` with the appropriate values if you copy/pasta these examples.
+
+The author recommends using a different GitHub App integration for each repo cloning submodules. This allows you to follow the [principle of least priviledge](https://en.wikipedia.org/wiki/Principle_of_least_privilege).
+
 ## Release Process
 When a commit is pushed to the base branch (`main`), the [dylanvann/publish-github-action](https://github.com/DylanVann/publish-github-action) GitHub Action is invoked. If the `version` field in the `package.json` is new, then the action:
 1. Downloads dependencies.
