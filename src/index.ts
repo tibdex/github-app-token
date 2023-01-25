@@ -1,14 +1,16 @@
 import { Buffer } from "node:buffer";
 import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
 import ensureError from "ensure-error";
+import * as fs from 'fs'
 import isBase64 from "is-base64";
 import { fetchInstallationToken } from "./fetch-installation-token.js";
 
-const packageJson = require('../package.json');
-info(`Running github-app-token v${packageJson.version}.`);
-
 const run = async () => {
   try {
+    const rawPackageJson = fs.readFileSync('../package.json', { encoding: 'utf8' });
+    const { version } = JSON.parse(rawPackageJson);
+    info(`Running github-app-token v${version}.`);
+
     const appId = getInput("app_id", { required: true });
 
     const installationIdInput = getInput("installation_id");
