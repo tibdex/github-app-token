@@ -46,3 +46,24 @@ jobs:
         run: |
           echo "The generated token is masked: ${TOKEN}"
 ```
+
+# Release Process
+When a commit is pushed to the base branch (`main`), the [dylanvann/publish-github-action](https://github.com/DylanVann/publish-github-action) GitHub Action is invoked. If the `version` field in the `package.json` is new, then the action:
+1. Downloads dependencies.
+1. Builds the project.
+1. Packs the action as a minimal distributable.
+1. Puts these files on a branch named "`releases/`" with the version string appended to the end.
+1. Points tags corresponding to the major, minor, and patch versions at the `HEAD` of the new `release*` branch.
+
+For example, if the `version` field in `package.json` is `1.1.1`, the following refs will be created.
+- A branch named `releases/v1.1.1` with the action built and other files removed.
+- A tag named `v1.1.1` is created pointing at the `HEAD` of `releases/v1.1.1`.
+- A tag named `v1.1` is _moved_ or created, pointing at the `HEAD` of `releases/v1.1.1`.
+- A tag named `v1` is _moved_ or created, pointing at the `HEAD` of `releases/v1.1.1`.
+
+It is important to note some repo protections will prevent this action from running.
+- Tag protections.
+- Branch protections matching the release pattern.
+- Code signing requirements.
+
+If these are enforced, they must be disabled for the action to run.
