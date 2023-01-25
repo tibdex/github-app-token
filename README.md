@@ -11,8 +11,8 @@ For instance, from [GitHub Actions' docs](https://docs.github.com/en/actions/usi
 A workaround is to use a [personal access token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) from a [personal user/bot account](https://help.github.com/en/github/getting-started-with-github/types-of-github-accounts#personal-user-accounts).
 However, for organizations, GitHub Apps are [a more appropriate automation solution](https://developer.github.com/apps/differences-between-apps/#machine-vs-bot-accounts).
 
-# Example Workflow
-
+# Examples
+Here is a generic example retrieving a token from a GitHub App using this action, then consuming that token in a subsequent step. You can see some of the optional inputs listed in comments, as well.
 ```yml
 jobs:
   job:
