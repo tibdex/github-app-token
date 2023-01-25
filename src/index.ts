@@ -1,13 +1,13 @@
 import { Buffer } from "node:buffer";
 import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
 import ensureError from "ensure-error";
-import * as fs from "fs";
+import { readFileSync } from "fs";
 import isBase64 from "is-base64";
 import { fetchInstallationToken } from "./fetch-installation-token.js";
 
 const run = async () => {
   try {
-    const rawPackageJson = fs.readFileSync("../package.json", { encoding: "utf8" });
+    const rawPackageJson = readFileSync("../package.json", { encoding: "utf8" });
     const { version } = JSON.parse(rawPackageJson);
     info(`Running github-app-token v${version}.`);
 
