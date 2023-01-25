@@ -4,6 +4,9 @@ import ensureError from "ensure-error";
 import isBase64 from "is-base64";
 import { fetchInstallationToken } from "./fetch-installation-token.js";
 
+const packageJson = require('../package.json');
+info(`Running github-app-token v${packageJson.version}.`);
+
 const run = async () => {
   try {
     const appId = getInput("app_id", { required: true });
