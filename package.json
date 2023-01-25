@@ -16,7 +16,7 @@
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
-    "@octokit/auth-app": "^4.0.7",
+    "@octokit/auth-app": "^4.0.9",
     "@octokit/request": "^6.2.2",
     "ensure-error": "^4.0.0",
     "is-base64": "^1.1.0"
