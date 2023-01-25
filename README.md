@@ -133,6 +133,8 @@ Don't forget to replace `${REPO_NAME}` and `${REPO_URL}` with the appropriate va
 
 The author recommends using a different GitHub App integration for each repo cloning submodules. This allows you to follow the [principle of least priviledge](https://en.wikipedia.org/wiki/Principle_of_least_privilege).
 
+Credit to [@petr-tichy](https://github.com/petr-tichy) for [the idea](https://github.com/actions/checkout/issues/287#issuecomment-1255364513), and [@matthijskooijman](https://github.com/matthijskooijman) for sharing [detailed steps to accomplish this](https://github.com/actions/checkout/issues/287#issuecomment-1315458401). Thank you both!
+
 ## Release Process
 When a commit is pushed to the base branch (`main`), the [dylanvann/publish-github-action](https://github.com/DylanVann/publish-github-action) GitHub Action is invoked. If the `version` field in the `package.json` is new, then the action:
 1. Downloads dependencies.
