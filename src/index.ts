@@ -10,8 +10,8 @@ const run = async () => {
     const rawPackageJson = readFileSync("../package.json", {
       encoding: "utf8",
     });
-    const packageJSON = JSON.parse(rawPackageJson);
-    info(`Running github-app-token v${packageJSON.version}.`);
+    const version: string = JSON.parse(rawPackageJson).version;
+    info(`Running github-app-token v${version}.`);
 
     const appId = getInput("app_id", { required: true });
 
