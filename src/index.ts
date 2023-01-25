@@ -7,7 +7,9 @@ import { fetchInstallationToken } from "./fetch-installation-token.js";
 
 const run = async () => {
   try {
-    const rawPackageJson = readFileSync("../package.json", { encoding: "utf8" });
+    const rawPackageJson = readFileSync("../package.json", {
+      encoding: "utf8",
+    });
     const { version } = JSON.parse(rawPackageJson);
     info(`Running github-app-token v${version}.`);
 
