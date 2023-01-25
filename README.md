@@ -113,7 +113,7 @@ Steps:
         steps:
           - name: Authenticate
             id: auth
-            uses: AntelopeIO/github-app-token-action@v1
+            uses: tibdex/github-app-token@v1
             with:
               app_id: ${{ secrets.${REPO_NAME}_CI_APP_ID }}
               private_key: ${{ secrets.${REPO_NAME}_CI_APP_KEY }}
