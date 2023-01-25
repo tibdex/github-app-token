@@ -1,7 +1,7 @@
 import { Buffer } from "node:buffer";
+import { readFileSync } from "node:fs";
 import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
 import ensureError from "ensure-error";
-import { readFileSync } from "fs";
 import isBase64 from "is-base64";
 import { fetchInstallationToken } from "./fetch-installation-token.js";
 
