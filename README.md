@@ -10,7 +10,7 @@ For instance, from [GitHub Actions' docs](https://docs.github.com/en/actions/usi
 A workaround is to use a [personal access token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) from a [personal user/bot account](https://help.github.com/en/github/getting-started-with-github/types-of-github-accounts#personal-user-accounts).
 However, for organizations, GitHub Apps are [a more appropriate automation solution](https://developer.github.com/apps/differences-between-apps/#machine-vs-bot-accounts).
 
-# Examples
+## Examples
 Here is a generic example retrieving a token from a GitHub App using this action, then consuming that token in a subsequent step. You can see some of the optional inputs listed in comments, as well.
 ```yml
 jobs:
@@ -46,7 +46,7 @@ jobs:
           echo "The generated token is masked: ${TOKEN}"
 ```
 
-# Release Process
+## Release Process
 When a commit is pushed to the base branch (`main`), the [dylanvann/publish-github-action](https://github.com/DylanVann/publish-github-action) GitHub Action is invoked. If the `version` field in the `package.json` is new, then the action:
 1. Downloads dependencies.
 1. Builds the project.
