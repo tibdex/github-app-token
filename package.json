@@ -10,7 +10,7 @@
   "scripts": {
     "prebuild": "tsc --build",
     "build": "ncc build src/index.ts --minify  --target es2021 --v8-cache",
-    "prettier": "prettier --ignore-path .gitignore \"./**/*.{cjs,js,json,md,ts,yml}\"",
+    "prettier": "prettier --ignore-path .gitignore \"./**/*.{cjs,js,json,ts,yml}\"",
     "xo": "xo"
   },
   "dependencies": {
