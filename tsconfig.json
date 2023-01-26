@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "Node16",
+    "moduleResolution": "Node16",
     "noEmit": true,
     "strict": true,
-    "target": "es2021",
-    "types": ["node", "error-cause/auto"]
+    "target": "ES2022",
+    "types": ["node"]
   },
   "include": ["src"]
 }
