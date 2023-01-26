@@ -1,7 +1,6 @@
 import { getOctokit } from "@actions/github";
 import { createAppAuth } from "@octokit/auth-app";
 import { request } from "@octokit/request";
-import ensureError from "ensure-error";
 
 export const fetchInstallationToken = async ({
   appId,
@@ -42,7 +41,7 @@ export const fetchInstallationToken = async ({
     } catch (error: unknown) {
       throw new Error(
         "Could not get repo installation. Is the app installed on this repo?",
-        { cause: ensureError(error) },
+        { cause: error },
       );
     }
   }
@@ -56,7 +55,7 @@ export const fetchInstallationToken = async ({
     return installation.token;
   } catch (error: unknown) {
     throw new Error("Could not create installation access token.", {
-      cause: ensureError(error),
+      cause: error,
     });
   }
 };

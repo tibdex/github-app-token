@@ -31,16 +31,6 @@ module.exports = {
       },
     ],
     "import/no-namespace": "error",
-    "import/order": [
-      "error",
-      {
-        alphabetize: {
-          caseInsensitive: true,
-          order: "asc",
-        },
-        "newlines-between": "never",
-      },
-    ],
     "no-console": "error",
     "object-shorthand": [
       "error",
@@ -53,7 +43,6 @@ module.exports = {
         caseSensitive: false,
       },
     ],
-    "sort-imports": ["error", { ignoreDeclarationSort: true }],
     "sort-keys": [
       "error",
       "asc",
