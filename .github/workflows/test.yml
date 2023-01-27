@@ -10,6 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
       - run: yarn install --frozen-lockfile
       - run: yarn run yarn-deduplicate --fail --strategy fewer
       - run: yarn run build
@@ -23,5 +27,6 @@ jobs:
           # The only required permission is `Repository permissions > Metadata: Read-only`.
           app_id: ${{ vars.TEST_GITHUB_APP_ID }}
           private_key: ${{ secrets.TEST_GITHUB_APP_PRIVATE_KEY }}
+      - run: echo "${{ steps.generate_token.outputs.outcome }}"
       - run: node --eval "assert('${{ steps.generate_token.outputs.token }}'.length > 0);"
         if: ${{ steps.generate_token.outputs.outcome != 'skipped' }}
