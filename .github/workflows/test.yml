@@ -27,6 +27,5 @@ jobs:
           # The only required permission is `Repository permissions > Metadata: Read-only`.
           app_id: ${{ vars.TEST_GITHUB_APP_ID }}
           private_key: ${{ secrets.TEST_GITHUB_APP_PRIVATE_KEY }}
-      - run: echo "${{ steps.generate_token.outcome }}"
       - run: node --eval "assert('${{ steps.generate_token.outputs.token }}'.length > 0);"
-        if: ${{ steps.generate_token.outputs.outcome != 'skipped' }}
+        if: ${{ steps.generate_token.outcome != 'skipped' }}
