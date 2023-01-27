@@ -21,7 +21,7 @@ jobs:
       - run: yarn run xo
       # Optional integration test of the action using a dedicated GitHub App.
       - id: generate_token
-        if: ${{ vars.TEST_GITHUB_APP_ID == '' }}
+        if: ${{ vars.TEST_GITHUB_APP_ID != '' }}
         uses: ./
         with:
           # The only required permission is `Repository permissions > Metadata: Read-only`.
