@@ -39,6 +39,11 @@ jobs:
 
           # Optional.
           # repository: owner/repo
+          
+          # Optional.
+          # token_access_repositories:
+          #   - repo1
+          #   - repo2
 
       - name: Use token
         env:
