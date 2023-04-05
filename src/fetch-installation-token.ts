@@ -18,6 +18,7 @@ export const fetchInstallationToken = async ({
   permissions?: Record<string, string>;
   privateKey: string;
   repo: string;
+  repositories?: Array<string>
 }>): Promise<string> => {
   const app = createAppAuth({
     appId,
@@ -50,6 +51,7 @@ export const fetchInstallationToken = async ({
     const { data: installation } =
       await octokit.rest.apps.createInstallationAccessToken({
         installation_id: installationId,
+        repositories,
         permissions,
       });
     return installation.token;
