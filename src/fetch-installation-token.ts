@@ -10,6 +10,7 @@ export const fetchInstallationToken = async ({
   permissions,
   privateKey,
   repo,
+  repositories,
 }: Readonly<{
   appId: string;
   githubApiUrl: URL;
