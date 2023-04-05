@@ -43,6 +43,7 @@ try {
     permissions,
     privateKey,
     repo,
+    repositories,
   });
 
   setSecret(installationToken);
