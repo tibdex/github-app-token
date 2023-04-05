@@ -18,6 +18,8 @@ inputs:
   repository:
     description: The full name of the repository for which the token will be requested.
     default: ${{ github.repository }}
+  token_access_repositories:
+    description: A list of repository names that the token will have access to.
 outputs:
   token:
     description: An installation token for the GitHub App on the requested repository.
