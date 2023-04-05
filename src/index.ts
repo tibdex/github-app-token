@@ -27,6 +27,11 @@ try {
   const repositoryInput = getInput("repository", { required: true });
   const [owner, repo] = repositoryInput.split("/");
 
+  const repositoriesInput = getInput("token_access_repositories");
+  const repositories = repositoriesInput
+    ? (repositoriesInput as Array<string>)
+    : undefined;
+
   const githubApiUrlInput = getInput("github_api_url", { required: true });
   const githubApiUrl = new URL(githubApiUrlInput);
 
