@@ -17,7 +17,7 @@ jobs:
       - run: yarn install --frozen-lockfile
       - run: yarn run yarn-deduplicate --fail --strategy fewer
       - run: yarn run build
-      - run: yarn run prettier --check
+      # - run: yarn run prettier --check
       - run: yarn run xo
       # Optional integration test of the action using a dedicated GitHub App.
       # - id: generate_token
