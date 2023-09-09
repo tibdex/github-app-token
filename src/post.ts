@@ -12,5 +12,4 @@ await run(async () => {
   }
   await revokeInstallationAccessToken(token);
   info("Token revoked successfully");
-  await revokeInstallationAccessToken(token);
 });
