@@ -25,8 +25,6 @@ jobs:
           # The only required permission is `Repository permissions > Metadata: Read-only`.
           app_id: ${{ vars.TEST_GITHUB_APP_ID }}
           private_key: ${{ secrets.TEST_GITHUB_APP_PRIVATE_KEY }}
-          permissions: >-
-            {"pull_requests": "read"}
       - run: node --eval "assert('${{ steps.create_token.outputs.token }}'.length > 0);"
         if: ${{ steps.create_token.outcome != 'skipped' }}
       - run: npm run prettier -- --check
