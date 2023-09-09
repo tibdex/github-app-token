@@ -5,7 +5,7 @@ import ensureError from "ensure-error";
 import isBase64 from "is-base64";
 
 import { fetchInstallationToken } from "./fetch-installation-token.js";
-import {getInstallationRetrievalDetails} from "./installation-retrieval-details.js"
+import { getInstallationRetrievalDetails } from "./installation-retrieval-details.js";
 
 try {
   const appId = getInput("app_id", { required: true });
@@ -13,9 +13,17 @@ try {
   const githubApiUrlInput = getInput("github_api_url", { required: true });
   const githubApiUrl = new URL(githubApiUrlInput);
 
-  const installationRetrievalMode = getInput("installation_retrieval_mode", { required: true });
-  const installationRetrievalPayload = getInput("installation_retrieval_payload", { required: true });
-  const installationRetrievalDetails = getInstallationRetrievalDetails({mode: installationRetrievalMode, payload: installationRetrievalPayload});
+  const installationRetrievalMode = getInput("installation_retrieval_mode", {
+    required: true,
+  });
+  const installationRetrievalPayload = getInput(
+    "installation_retrieval_payload",
+    { required: true },
+  );
+  const installationRetrievalDetails = getInstallationRetrievalDetails({
+    mode: installationRetrievalMode,
+    payload: installationRetrievalPayload,
+  });
 
   const permissionsInput = getInput("permissions");
   const permissions = permissionsInput

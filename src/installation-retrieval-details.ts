@@ -5,18 +5,24 @@ export type InstallationRetrievalDetails = Readonly<
   | { mode: "user"; username: string }
 >;
 
-export const getInstallationRetrievalDetails = ({mode, payload}: Readonly<{mode: string, payload: string}>): InstallationRetrievalDetails => {
- switch (mode) {
+export const getInstallationRetrievalDetails = ({
+  mode,
+  payload,
+}: Readonly<{
+  mode: string;
+  payload: string;
+}>): InstallationRetrievalDetails => {
+  switch (mode) {
     case "id":
-        return {mode, id: Number(payload)};
+      return { mode, id: Number(payload) };
     case "organization":
-        return {mode, org: payload};
+      return { mode, org: payload };
     case "repository":
-        const [owner, repo] = payload.split("/");
-        return {mode, owner, repo};
+      const [owner, repo] = payload.split("/");
+      return { mode, owner, repo };
     case "user":
-        return {mode, username: payload};
+      return { mode, username: payload };
     default:
-        throw new Error(`Unsupported retrieval mode: "${mode}".`)
- }
+      throw new Error(`Unsupported retrieval mode: "${mode}".`);
+  }
 };

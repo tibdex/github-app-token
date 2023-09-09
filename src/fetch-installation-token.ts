@@ -2,7 +2,7 @@ import { getOctokit } from "@actions/github";
 import { createAppAuth } from "@octokit/auth-app";
 import { request } from "@octokit/request";
 
-import {InstallationRetrievalDetails} from "./installation-retrieval-details.js";
+import { InstallationRetrievalDetails } from "./installation-retrieval-details.js";
 
 export const fetchInstallationToken = async ({
   appId,
@@ -38,13 +38,13 @@ export const fetchInstallationToken = async ({
   try {
     switch (installationRetrievalDetails.mode) {
       case "id":
-        ({id: installationId} = installationRetrievalDetails);
+        ({ id: installationId } = installationRetrievalDetails);
         break;
       case "organization":
         ({
           data: { id: installationId },
         } = await octokit.request("GET /orgs/{org}/installation", {
-          org: installationRetrievalDetails.org
+          org: installationRetrievalDetails.org,
         }));
         break;
       case "repository":
@@ -52,7 +52,7 @@ export const fetchInstallationToken = async ({
           data: { id: installationId },
         } = await octokit.request("GET /repos/{owner}/{repo}/installation", {
           owner: installationRetrievalDetails.owner,
-          repo: installationRetrievalDetails.repo
+          repo: installationRetrievalDetails.repo,
         }));
         break;
       case "user":
@@ -64,18 +64,16 @@ export const fetchInstallationToken = async ({
         break;
     }
   } catch (error: unknown) {
-    throw new Error(
-      "Could not get retrieve installation.",
-      { cause: error },
-    );
+    throw new Error("Could not get retrieve installation.", { cause: error });
   }
 
   try {
-    const { data: {token} } =
-      await octokit.rest.apps.createInstallationAccessToken({
-        installation_id: installationId,
-        permissions,
-      });
+    const {
+      data: { token },
+    } = await octokit.rest.apps.createInstallationAccessToken({
+      installation_id: installationId,
+      permissions,
+    });
     return token;
   } catch (error: unknown) {
     throw new Error("Could not create installation access token.", {
