@@ -67,6 +67,7 @@ try {
   info("Token generated successfully!");
 } catch (error) {
   // Using `console.error()` instead of only passing `error` to `setFailed()` for better error reporting.
+  // See https://github.com/actions/toolkit/issues/1527.
   console.error(error);
   setFailed("");
 }
