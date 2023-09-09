@@ -30,13 +30,13 @@ try {
     mode: installationRetrievalMode,
     payload: installationRetrievalPayload,
   });
-  debug(`Installation retrieval details: ${installationRetrievalDetails}.`);
+  debug(`Installation retrieval details: ${JSON.stringify(installationRetrievalDetails)}.`);
 
   const permissionsInput = getInput("permissions");
   const permissions = permissionsInput
     ? (JSON.parse(permissionsInput) as Record<string, string>)
     : undefined;
-  debug(`Requested permissions: ${permissions}.`);
+  debug(`Requested permissions: ${JSON.stringify(permissions)}.`);
 
   const privateKeyInput = getInput("private_key", { required: true });
   const privateKey = isBase64(privateKeyInput)
@@ -47,7 +47,7 @@ try {
   const repositories = repositoriesInput
     ? (JSON.parse(repositoriesInput) as string[])
     : undefined;
-  debug(`Requested repositories: ${permissions}.`);
+  debug(`Requested repositories: ${JSON.stringify(repositories)}.`);
 
   const token = await fetchInstallationToken({
     appId,

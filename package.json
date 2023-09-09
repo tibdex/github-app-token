@@ -17,7 +17,6 @@
     "@actions/github": "^5.1.1",
     "@octokit/auth-app": "^6.0.0",
     "@octokit/request": "^8.1.1",
-    "ensure-error": "^4.0.0",
     "is-base64": "^1.1.0"
   },
   "devDependencies": {
