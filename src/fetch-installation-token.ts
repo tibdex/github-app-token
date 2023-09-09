@@ -35,40 +35,49 @@ export const fetchInstallationToken = async ({
 
   let installationId: number;
 
-  switch (installationRetrievalDetails.mode) {
-    case "id":
-      ({ id: installationId } = installationRetrievalDetails);
-      break;
-    case "organization":
-      ({
-        data: { id: installationId },
-      } = await octokit.request("GET /orgs/{org}/installation", {
-        org: installationRetrievalDetails.org,
-      }));
-      break;
-    case "repository":
-      ({
-        data: { id: installationId },
-      } = await octokit.request("GET /repos/{owner}/{repo}/installation", {
-        owner: installationRetrievalDetails.owner,
-        repo: installationRetrievalDetails.repo,
-      }));
-      break;
-    case "user":
-      ({
-        data: { id: installationId },
-      } = await octokit.request("GET /users/{username}/installation", {
-        username: installationRetrievalDetails.username,
-      }));
-      break;
+  try {
+    switch (installationRetrievalDetails.mode) {
+      case "id":
+        ({ id: installationId } = installationRetrievalDetails);
+        break;
+      case "organization":
+        ({
+          data: { id: installationId },
+        } = await octokit.request("GET /orgs/{org}/installation", {
+          org: installationRetrievalDetails.org,
+        }));
+        break;
+      case "repository":
+        ({
+          data: { id: installationId },
+        } = await octokit.request("GET /repos/{owner}/{repo}/installation", {
+          owner: installationRetrievalDetails.owner,
+          repo: installationRetrievalDetails.repo,
+        }));
+        break;
+      case "user":
+        ({
+          data: { id: installationId },
+        } = await octokit.request("GET /users/{username}/installation", {
+          username: installationRetrievalDetails.username,
+        }));
+        break;
+    }
+  } catch (error: unknown) {
+    throw new Error("Could not get retrieve installation.", { cause: error });
   }
 
-  const {
-    data: { token },
-  } = await octokit.rest.apps.createInstallationAccessToken({
-    installation_id: installationId,
-    permissions,
-    repositories,
-  });
-  return token;
+  try {
+    const {
+      data: { token },
+    } = await octokit.rest.apps.createInstallationAccessToken({
+      installation_id: installationId,
+      permissions,
+    });
+    return token;
+  } catch (error: unknown) {
+    throw new Error("Could not create installation access token.", {
+      cause: error,
+    });
+  }
 };
