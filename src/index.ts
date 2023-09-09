@@ -30,7 +30,11 @@ try {
     mode: installationRetrievalMode,
     payload: installationRetrievalPayload,
   });
-  debug(`Installation retrieval details: ${JSON.stringify(installationRetrievalDetails)}.`);
+  debug(
+    `Installation retrieval details: ${JSON.stringify(
+      installationRetrievalDetails,
+    )}.`,
+  );
 
   const permissionsInput = getInput("permissions");
   const permissions = permissionsInput
