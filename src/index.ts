@@ -5,14 +5,17 @@ import ensureError from "ensure-error";
 import isBase64 from "is-base64";
 
 import { fetchInstallationToken } from "./fetch-installation-token.js";
+import {getInstallationRetrievalDetails} from "./installation-retrieval-details.js"
 
 try {
   const appId = getInput("app_id", { required: true });
 
-  const installationIdInput = getInput("installation_id");
-  const installationId = installationIdInput
-    ? Number(installationIdInput)
-    : undefined;
+  const githubApiUrlInput = getInput("github_api_url", { required: true });
+  const githubApiUrl = new URL(githubApiUrlInput);
+
+  const installationRetrievalMode = getInput("installation_retrieval_mode", { required: true });
+  const installationRetrievalPayload = getInput("installation_retrieval_payload", { required: true });
+  const installationRetrievalDetails = getInstallationRetrievalDetails({mode: installationRetrievalMode, payload: installationRetrievalPayload});
 
   const permissionsInput = getInput("permissions");
   const permissions = permissionsInput
@@ -24,24 +27,22 @@ try {
     ? Buffer.from(privateKeyInput, "base64").toString("utf8")
     : privateKeyInput;
 
-  const repositoryInput = getInput("repository", { required: true });
-  const [owner, repo] = repositoryInput.split("/");
+  const repositoriesInput = getInput("repositories");
+  const repositories = repositoriesInput
+    ? (JSON.parse(repositoriesInput) as string[])
+    : undefined;
 
-  const githubApiUrlInput = getInput("github_api_url", { required: true });
-  const githubApiUrl = new URL(githubApiUrlInput);
-
-  const installationToken = await fetchInstallationToken({
+  const token = await fetchInstallationToken({
     appId,
     githubApiUrl,
-    installationId,
-    owner,
+    installationRetrievalDetails,
     permissions,
     privateKey,
-    repo,
+    repositories,
   });
 
-  setSecret(installationToken);
-  setOutput("token", installationToken);
+  setSecret(token);
+  setOutput("token", token);
   info("Token generated successfully!");
 } catch (_error: unknown) {
   const error = ensureError(_error);

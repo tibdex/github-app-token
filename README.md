@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Generate token
         id: generate_token
-        uses: tibdex/github-app-token@v1
+        uses: tibdex/github-app-token@v2
         with:
           app_id: ${{ secrets.APP_ID }}
 
@@ -28,17 +28,21 @@ jobs:
           # github_api_url: https://api.example.com
 
           # Optional.
-          # installation_id: 1337
+          # installation_retrieval_mode: id
+
+          # Optional.
+          # installation_retrieval_payload: 1337
 
           # Optional.
           # Using a YAML multiline string to avoid escaping the JSON quotes.
           # permissions: >-
-          #   {"members": "read"}
+          #   {"pull_requests": "read"}
 
           private_key: ${{ secrets.PRIVATE_KEY }}
 
           # Optional.
-          # repository: owner/repo
+          # repositories: >-
+          #   ["actions/toolkit", "github/docs"]
 
       - name: Use token
         env:
