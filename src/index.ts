@@ -10,7 +10,7 @@ import {
 } from "@actions/core";
 import isBase64 from "is-base64";
 
-import { fetchInstallationToken } from "./fetch-installation-token.js";
+import { createInstallationAccessToken } from "./create-installation-access-token.js";
 import { getInstallationRetrievalDetails } from "./installation-retrieval-details.js";
 
 try {
@@ -53,7 +53,7 @@ try {
     : undefined;
   debug(`Requested repositories: ${JSON.stringify(repositories)}.`);
 
-  const token = await fetchInstallationToken({
+  const token = await createInstallationAccessToken({
     appId,
     githubApiUrl,
     installationRetrievalDetails,
@@ -64,7 +64,7 @@ try {
 
   setSecret(token);
   setOutput("token", token);
-  info("Token generated successfully!");
+  info("Token created successfully!");
 } catch (error) {
   // Using `console.error()` instead of only passing `error` to `setFailed()` for better error reporting.
   // See https://github.com/actions/toolkit/issues/1527.

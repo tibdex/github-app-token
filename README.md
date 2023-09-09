@@ -18,8 +18,8 @@ jobs:
   job:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate token
-        id: generate_token
+      - name: Create token
+        id: create_token
         uses: tibdex/github-app-token@v2
         with:
           app_id: ${{ secrets.APP_ID }}
@@ -46,9 +46,9 @@ jobs:
 
       - name: Use token
         env:
-          TOKEN: ${{ steps.generate_token.outputs.token }}
+          TOKEN: ${{ steps.create_token.outputs.token }}
         run: |
-          echo "The generated token is masked: ${TOKEN}"
+          echo "The created token is masked: ${TOKEN}"
 ```
 
 [Another use case for this action can (or could) be found in GitHub's own docs](https://web.archive.org/web/20230115194214/https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/automating-projects-using-actions#example-workflow-authenticating-with-a-github-app).

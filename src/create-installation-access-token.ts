@@ -5,7 +5,7 @@ import { request } from "@octokit/request";
 
 import { InstallationRetrievalDetails } from "./installation-retrieval-details.js";
 
-export const fetchInstallationToken = async ({
+export const createInstallationAccessToken = async ({
   appId,
   githubApiUrl,
   installationRetrievalDetails,
@@ -65,18 +65,16 @@ export const fetchInstallationToken = async ({
         break;
     }
   } catch (error: unknown) {
-    throw new Error("Could not get retrieve installation.", { cause: error });
+    throw new Error("Could not retrieve installation.", { cause: error });
   }
 
   debug(`Retrieved installation ID: ${installationId}.`);
 
   try {
+
     const {
       data: { token },
-    } = await octokit.rest.apps.createInstallationAccessToken({
-      installation_id: installationId,
-      permissions,
-    });
+    } = await octokit.request("POST /app/installations/{installation_id}/access_tokens", {installation_id: installationId, permissions, repositories});
     return token;
   } catch (error: unknown) {
     throw new Error("Could not create installation access token.", {
