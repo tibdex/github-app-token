@@ -28,6 +28,12 @@ jobs:
       - name: Revoke token
         env:
           GITHUB_TOKEN: ${{ steps.create_token.outputs.token }}
-
+        run: >-
+          gh api --header "X-GitHub-Api-Version: 2022-11-28" --method DELETE /installation/token
+      - name: Revoke token (again)
+        env:
+          GITHUB_TOKEN: ${{ steps.create_token.outputs.token }}
+        run: >-
+          gh api --header "X-GitHub-Api-Version: 2022-11-28" --method DELETE /installation/token
       - run: node --eval "assert('${{ steps.create_token.outputs.token }}'.length > 0);"
         if: ${{ steps.create_token.outcome != 'skipped' }}

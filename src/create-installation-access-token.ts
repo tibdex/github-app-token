@@ -71,10 +71,12 @@ export const createInstallationAccessToken = async ({
   debug(`Retrieved installation ID: ${installationId}.`);
 
   try {
-
     const {
       data: { token },
-    } = await octokit.request("POST /app/installations/{installation_id}/access_tokens", {installation_id: installationId, permissions, repositories});
+    } = await octokit.request(
+      "POST /app/installations/{installation_id}/access_tokens",
+      { installation_id: installationId, permissions, repositories },
+    );
     return token;
   } catch (error: unknown) {
     throw new Error("Could not create installation access token.", {
