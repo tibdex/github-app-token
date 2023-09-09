@@ -1,6 +1,6 @@
 {
   "name": "github-app-token",
-  "version": "1.9.0",
+  "version": "2.0.0",
   "license": "MIT",
   "type": "module",
   "files": [
@@ -8,16 +8,18 @@
     "dist"
   ],
   "scripts": {
-    "prebuild": "tsc --build",
-    "build": "ncc build src/index.ts --minify --target es2021 --v8-cache",
-    "prettier": "prettier --ignore-path .gitignore \"./**/*.{js,json,md,ts,yml}\""
+    "build": "npm run build:main && npm run build:post",
+    "build:main": "npm run compile -- --out ./dist/main src/main.ts ",
+    "build:post": "npm run compile -- --out ./dist/post src/post.ts",
+    "compile": "ncc build --minify --no-cache --target es2022 --v8-cache",
+    "prettier": "prettier --ignore-path .gitignore \"./**/*.{js,json,md,ts,yml}\"",
+    "typecheck": "tsc --build"
   },
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
     "@octokit/auth-app": "^6.0.0",
     "@octokit/request": "^8.1.1",
-    "ensure-error": "^4.0.0",
     "is-base64": "^1.1.0"
   },
   "devDependencies": {
