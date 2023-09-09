@@ -1,7 +1,13 @@
 import { Buffer } from "node:buffer";
 
-import { getInput, info, setFailed, setOutput, setSecret } from "@actions/core";
-import ensureError from "ensure-error";
+import {
+  debug,
+  getInput,
+  info,
+  setFailed,
+  setOutput,
+  setSecret,
+} from "@actions/core";
 import isBase64 from "is-base64";
 
 import { fetchInstallationToken } from "./fetch-installation-token.js";
@@ -24,11 +30,13 @@ try {
     mode: installationRetrievalMode,
     payload: installationRetrievalPayload,
   });
+  debug(`Installation retrieval details: ${installationRetrievalDetails}.`);
 
   const permissionsInput = getInput("permissions");
   const permissions = permissionsInput
     ? (JSON.parse(permissionsInput) as Record<string, string>)
     : undefined;
+  debug(`Requested permissions: ${permissions}.`);
 
   const privateKeyInput = getInput("private_key", { required: true });
   const privateKey = isBase64(privateKeyInput)
@@ -39,6 +47,7 @@ try {
   const repositories = repositoriesInput
     ? (JSON.parse(repositoriesInput) as string[])
     : undefined;
+  debug(`Requested repositories: ${permissions}.`);
 
   const token = await fetchInstallationToken({
     appId,
@@ -52,8 +61,8 @@ try {
   setSecret(token);
   setOutput("token", token);
   info("Token generated successfully!");
-} catch (_error: unknown) {
-  const error = ensureError(_error);
-  console.error(error);
+} catch (error) {
+  // Using `console.error()` instead of only passing `error` to `setFailed()` for better error reporting.
+  console.debug(error);
   setFailed("");
 }

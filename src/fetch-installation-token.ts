@@ -1,3 +1,4 @@
+import { debug } from "@actions/core";
 import { getOctokit } from "@actions/github";
 import { createAppAuth } from "@octokit/auth-app";
 import { request } from "@octokit/request";
@@ -66,6 +67,8 @@ export const fetchInstallationToken = async ({
   } catch (error: unknown) {
     throw new Error("Could not get retrieve installation.", { cause: error });
   }
+
+  debug(`Retrieved installation ID: ${installationId}.`);
 
   try {
     const {

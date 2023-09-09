@@ -14,7 +14,7 @@ export const getInstallationRetrievalDetails = ({
 }>): InstallationRetrievalDetails => {
   switch (mode) {
     case "id":
-      return { mode, id: Number(payload) };
+      return { mode, id: parseInt(payload) };
     case "organization":
       return { mode, org: payload };
     case "repository":
