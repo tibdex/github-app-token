@@ -1,19 +1,12 @@
 import { Buffer } from "node:buffer";
 
-import {
-  debug,
-  getInput,
-  info,
-  setFailed,
-  setOutput,
-  setSecret,
-} from "@actions/core";
+import { debug, getInput } from "@actions/core";
 import isBase64 from "is-base64";
 
-import { createInstallationAccessToken } from "./create-installation-access-token.js";
-import { getInstallationRetrievalDetails } from "./installation-retrieval-details.js";
+import { InstallationAccessTokenCreationOptions } from "./create-installation-access-token.js";
+import { getInstallationRetrievalDetails } from "./installation-retrieval.js";
 
-try {
+export const parseOptions = (): InstallationAccessTokenCreationOptions => {
   const appId = getInput("app_id", { required: true });
 
   const githubApiUrlInput = getInput("github_api_url", { required: true });
@@ -53,21 +46,12 @@ try {
     : undefined;
   debug(`Requested repositories: ${JSON.stringify(repositories)}.`);
 
-  const token = await createInstallationAccessToken({
+  return {
     appId,
     githubApiUrl,
     installationRetrievalDetails,
     permissions,
     privateKey,
     repositories,
-  });
-
-  setSecret(token);
-  setOutput("token", token);
-  info("Token created successfully!");
-} catch (error) {
-  // Using `console.error()` instead of only passing `error` to `setFailed()` for better error reporting.
-  // See https://github.com/actions/toolkit/issues/1527.
-  console.error(error);
-  setFailed("");
-}
+  };
+};
