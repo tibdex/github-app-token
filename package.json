@@ -8,7 +8,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "npm run build:main && npm run build:post",
+    "build": "npm run build:main",
     "build:main": "npm run compile -- --out ./dist/main src/main.ts ",
     "build:post": "npm run compile -- --out ./dist/post src/post.ts",
     "compile": "ncc build --minify --no-cache --target es2022 --v8-cache",
