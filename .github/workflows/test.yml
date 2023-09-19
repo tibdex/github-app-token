@@ -15,7 +15,7 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
-      # - run: npm run typecheck
+      - run: npm run typecheck
       - run: npm run build
       # Optional integration test of the action using a dedicated GitHub App.
       - id: create_token
@@ -25,6 +25,7 @@ jobs:
           # The only required permission is `Repository permissions > Metadata: Read-only`.
           app_id: ${{ vars.TEST_GITHUB_APP_ID }}
           private_key: ${{ secrets.TEST_GITHUB_APP_PRIVATE_KEY }}
+          revoke: false
       - if: ${{ steps.create_token.outcome != 'skipped' }}
         run: node --eval "assert('${{ steps.create_token.outputs.token }}'.length > 0);"
-      # - run: npm run prettier -- --check
+      - run: npm run prettier -- --check
