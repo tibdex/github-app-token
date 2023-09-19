@@ -43,6 +43,9 @@ jobs:
           # repositories: >-
           #   ["actions/toolkit", "github/docs"]
 
+          # Optional.
+          # revoke: "false"
+
       - run: "echo 'The created token is masked: ${{ steps.create_token.outputs.token }}'"
 ```
 

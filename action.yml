@@ -41,6 +41,9 @@ inputs:
       The JSON-stringified array of the full names of the repositories the token should have access to.
       Defaults to all repositories that the installation can access.
       See https://docs.github.com/en/rest/apps/apps?apiVersion=2022-11-28#create-an-installation-access-token-for-an-app's `repositories`.
+  revoke:
+    description: Revoke the token at the end of the job.
+    default: "true"
 outputs:
   token:
     description: An installation access token for the GitHub App.
@@ -48,6 +51,7 @@ runs:
   using: node20
   main: dist/main/index.js
   post: dist/post/index.js
+  post-if: fromJson(github.event.inputs.revoke)
 branding:
   icon: unlock
   color: gray-dark
