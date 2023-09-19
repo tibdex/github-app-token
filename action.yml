@@ -51,7 +51,7 @@ runs:
   using: node20
   main: dist/main/index.js
   post: dist/post/index.js
-  post-if: github.event.inputs.revoke == 'true'
+  post-if: inputs.revoke == 'true'
 branding:
   icon: unlock
   color: gray-dark
