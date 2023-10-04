@@ -1,1 +1,1 @@
-export const tokenKey = "token";
+export const tokenKey = "github-app-token-state";
