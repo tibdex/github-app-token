@@ -1,6 +1,6 @@
 {
   "name": "github-app-token",
-  "version": "1.8.0",
+  "version": "2.1.0",
   "license": "MIT",
   "type": "module",
   "files": [
@@ -8,32 +8,27 @@
     "dist"
   ],
   "scripts": {
-    "prebuild": "tsc --build",
-    "build": "ncc build src/index.ts --minify --target es2021 --v8-cache",
-    "prettier": "prettier --ignore-path .gitignore \"./**/*.{cjs,js,json,md,ts,yml}\"",
-    "xo": "xo"
+    "build": "npm run build:main && npm run build:post",
+    "build:main": "npm run compile -- --out ./dist/main src/main.ts ",
+    "build:post": "npm run compile -- --out ./dist/post src/post.ts",
+    "compile": "ncc build --minify --no-cache --target es2022 --v8-cache",
+    "prettier": "prettier --ignore-path .gitignore \"./**/*.{js,json,md,ts,yml}\"",
+    "typecheck": "tsc --build"
   },
   "dependencies": {
-    "@actions/core": "^1.10.0",
+    "@actions/core": "^1.10.1",
     "@actions/github": "^5.1.1",
-    "@octokit/auth-app": "^4.0.9",
-    "@octokit/request": "^6.2.3",
-    "ensure-error": "^4.0.0",
+    "@octokit/auth-app": "^6.0.0",
+    "@octokit/request": "^8.1.1",
     "is-base64": "^1.1.0"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.0.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "@types/is-base64": "^1.1.1",
-    "@types/node": "^16.11.26",
-    "@vercel/ncc": "^0.36.1",
-    "eslint-config-prettier": "^8.6.0",
-    "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-sort-destructure-keys": "^1.4.0",
-    "eslint-plugin-typescript-sort-keys": "^2.1.0",
-    "prettier": "^2.8.3",
-    "prettier-plugin-packagejson": "^2.4.0",
-    "typescript": "^4.9.4",
-    "xo": "^0.53.1",
-    "yarn-deduplicate": "^6.0.1"
+    "@types/node": "^20.6.2",
+    "@vercel/ncc": "^0.38.0",
+    "prettier": "^3.0.3",
+    "prettier-plugin-packagejson": "^2.4.5",
+    "typescript": "^5.2.2"
   }
 }

@@ -5,25 +5,52 @@ inputs:
   app_id:
     description: ID of the GitHub App.
     required: true
-  installation_id:
-    description: The ID of the installation for which the token will be requested (defaults to the ID of the repository's installation).
   github_api_url:
     description: The API URL of the GitHub server.
     default: ${{ github.api_url }}
+  installation_retrieval_mode:
+    description: >-
+      The mode used to retrieve the installation for which the token will be requested.
+
+      One of:
+      - id: use the installation with the specified ID.
+      - organization: use an organization installation (https://docs.github.com/en/rest/apps/apps?apiVersion=2022-11-28#get-an-organization-installation-for-the-authenticated-app).
+      - repository: use a repository installation (https://docs.github.com/en/rest/apps/apps?apiVersion=2022-11-28#get-a-repository-installation-for-the-authenticated-app).
+      - user: use a user installation (https://docs.github.com/en/rest/apps/apps?apiVersion=2022-11-28#get-a-user-installation-for-the-authenticated-app).
+    default: repository
+  installation_retrieval_payload:
+    description: >-
+      The payload used to retrieve the installation.
+
+      Examples for each retrieval mode:
+      - id: 1337
+      - organization: github
+      - repository: tibdex/github-app-token
+      - user: tibdex
+    default: ${{ github.repository }}
   permissions:
-    description: The JSON-stringified permissions granted to the token (defaults to all the GitHub app permissions, see https://docs.github.com/en/rest/apps/apps#create-an-installation-access-token-for-an-app).
+    description: >-
+      The JSON-stringified permissions granted to the token.
+      Defaults to all permissions granted to the GitHub app.
+      See https://docs.github.com/en/rest/apps/apps?apiVersion=2022-11-28#create-an-installation-access-token-for-an-app's `permissions`.
   private_key:
     description: Private key of the GitHub App (can be Base64 encoded).
     required: true
-  repository:
-    description: The full name of the repository for which the token will be requested.
-    default: ${{ github.repository }}
+  repositories:
+    description: >-
+      The JSON-stringified array of the full names of the repositories the token should have access to.
+      Defaults to all repositories that the installation can access.
+      See https://docs.github.com/en/rest/apps/apps?apiVersion=2022-11-28#create-an-installation-access-token-for-an-app's `repositories`.
+  revoke:
+    description: Revoke the token at the end of the job.
+    default: true
 outputs:
   token:
-    description: An installation token for the GitHub App on the requested repository.
+    description: An installation access token for the GitHub App.
 runs:
-  using: node16
-  main: dist/index.js
+  using: node20
+  main: dist/main/index.js
+  post: dist/post/index.js
 branding:
   icon: unlock
   color: gray-dark
