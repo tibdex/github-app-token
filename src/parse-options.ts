@@ -48,7 +48,7 @@ export const parseOptions = (): InstallationAccessTokenCreationOptions => {
 
   const repositoryIDsInput = getInput("repository_ids");
   const repositoryIDs = repositoryIDsInput
-    ? (JSON.parse(repositoryIDsInput) as string[])
+    ? (JSON.parse(repositoryIDsInput) as number[])
     : undefined;
   debug(`Requested repository_ids: ${JSON.stringify(repositoryIDs)}.`);
 

@@ -14,7 +14,7 @@ export type InstallationAccessTokenCreationOptions = Readonly<{
   permissions?: Record<string, string>;
   privateKey: string;
   repositories?: string[];
-  repositoryIDs?: string[];
+  repositoryIDs?: number[];
 }>;
 
 export const createInstallationAccessToken = async ({
