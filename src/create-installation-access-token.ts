@@ -50,7 +50,12 @@ export const createInstallationAccessToken = async ({
       data: { token },
     } = await octokit.request(
       "POST /app/installations/{installation_id}/access_tokens",
-      { installation_id: installationId, permissions, repositories, repository_ids: repositoryIDs },
+      {
+        installation_id: installationId,
+        permissions,
+        repositories,
+        repository_ids: repositoryIDs,
+      },
     );
     return token;
   } catch (error: unknown) {
