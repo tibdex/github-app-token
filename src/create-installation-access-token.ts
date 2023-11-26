@@ -14,6 +14,7 @@ export type InstallationAccessTokenCreationOptions = Readonly<{
   permissions?: Record<string, string>;
   privateKey: string;
   repositories?: string[];
+  repositoryIDs?: number[];
 }>;
 
 export const createInstallationAccessToken = async ({
@@ -23,6 +24,7 @@ export const createInstallationAccessToken = async ({
   permissions,
   privateKey,
   repositories,
+  repositoryIDs,
 }: InstallationAccessTokenCreationOptions): Promise<string> => {
   try {
     const app = createAppAuth({
@@ -48,7 +50,12 @@ export const createInstallationAccessToken = async ({
       data: { token },
     } = await octokit.request(
       "POST /app/installations/{installation_id}/access_tokens",
-      { installation_id: installationId, permissions, repositories },
+      {
+        installation_id: installationId,
+        permissions,
+        repositories,
+        repository_ids: repositoryIDs,
+      },
     );
     return token;
   } catch (error: unknown) {
