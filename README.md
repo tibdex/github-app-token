@@ -48,7 +48,7 @@ jobs:
           # https://docs.github.com/en/rest/apps/apps?apiVersion=2022-11-28#create-an-installation-access-token-for-an-app
           # https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
           # repository_ids: >-
-          #   ["${{github.repository_id}}"]
+          #   [${{github.repository_id}}]
 
           # Optional.
           # revoke: false
