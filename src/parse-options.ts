@@ -46,6 +46,12 @@ export const parseOptions = (): InstallationAccessTokenCreationOptions => {
     : undefined;
   debug(`Requested repositories: ${JSON.stringify(repositories)}.`);
 
+  const repositoryIDsInput = getInput("repository_ids");
+  const repositoryIDs = repositoryIDsInput
+    ? (JSON.parse(repositoryIDsInput) as string[])
+    : undefined;
+  debug(`Requested repository_ids: ${JSON.stringify(repositoryIDs)}.`);
+
   return {
     appId,
     githubApiUrl,
@@ -53,5 +59,6 @@ export const parseOptions = (): InstallationAccessTokenCreationOptions => {
     permissions,
     privateKey,
     repositories,
+    repositoryIDs,
   };
 };

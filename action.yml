@@ -41,6 +41,11 @@ inputs:
       The JSON-stringified array of the full names of the repositories the token should have access to.
       Defaults to all repositories that the installation can access.
       See https://docs.github.com/en/rest/apps/apps?apiVersion=2022-11-28#create-an-installation-access-token-for-an-app's `repositories`.
+  repository_ids:
+    description: >-
+      The JSON-stringified array of the ids of the repositories the token should have access to.
+      Defaults to all repositories that the installation can access.
+      See https://docs.github.com/en/rest/apps/apps?apiVersion=2022-11-28#create-an-installation-access-token-for-an-app's `repository_ids`.
   revoke:
     description: Revoke the token at the end of the job.
     default: true
