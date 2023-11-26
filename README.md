@@ -40,8 +40,9 @@ jobs:
           private_key: ${{ secrets.PRIVATE_KEY }}
 
           # Optional.
+          # List of repository names that the token should have access to.
           # repositories: >-
-          #   ["actions/toolkit", "github/docs"]
+          #   ["github-app-token"]
 
           # Optional.
           # revoke: false
