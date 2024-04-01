@@ -23,7 +23,9 @@ export const createInstallationAccessToken = async ({
   permissions,
   privateKey,
   repositories,
-}: InstallationAccessTokenCreationOptions): Promise<string> => {
+}: InstallationAccessTokenCreationOptions): Promise<{
+  [s: string]: string;
+}> => {
   try {
     const app = createAppAuth({
       appId,
@@ -45,12 +47,12 @@ export const createInstallationAccessToken = async ({
     );
 
     const {
-      data: { token },
+      data: { token, expires_at },
     } = await octokit.request(
       "POST /app/installations/{installation_id}/access_tokens",
       { installation_id: installationId, permissions, repositories },
     );
-    return token;
+    return { token: token, expiration: expires_at };
   } catch (error: unknown) {
     throw new Error("Could not create installation access token.", {
       cause: error,
