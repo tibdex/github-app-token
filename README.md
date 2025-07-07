@@ -1,3 +1,6 @@
+> [!IMPORTANT]  
+> This action is deprecated, use https://github.com/actions/create-github-app-token instead.
+
 # GitHub App Token
 
 This [JavaScript GitHub Action](https://help.github.com/en/actions/building-actions/about-actions#javascript-actions) can be used to impersonate a GitHub App when `secrets.GITHUB_TOKEN`'s limitations are too restrictive and a personal access token is not suitable.
